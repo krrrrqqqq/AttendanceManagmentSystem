@@ -6,7 +6,6 @@ import java.util.Optional;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
@@ -80,10 +79,6 @@ public class ControllerTeacher {
     public void updateTable() {
         loadStudentsData();
     }
-
-
-
-
     @FXML
     public void updateAttendance(ActionEvent event) {
         Student selectedStudent = getSelectedStudent();
@@ -94,16 +89,13 @@ public class ControllerTeacher {
         }
     }
     private void openAttendanceUpdateDialog(Student student) {
+        Dialog<ButtonType> dialog = new Dialog<>(); // Move the declaration outside the try block
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AttendanceUpdateDialog.fxml"));
-            Dialog<ButtonType> dialog = new Dialog<>();
             dialog.initOwner(tableStudents.getScene().getWindow());
             dialog.setTitle("Update Attendance");
             dialog.setHeaderText("Update Attendance for " + student.getFullName());
-
             dialog.getDialogPane().setContent(loader.load());
-
-            // Добавьте кнопки применения и отмены к диалоговому окну
             dialog.getDialogPane().getButtonTypes().addAll(ButtonType.APPLY, ButtonType.CANCEL);
 
             AttendanceUpdateDialogController controller = loader.getController();
@@ -111,27 +103,25 @@ public class ControllerTeacher {
             controller.setTableStudents(tableStudents);
 
             Optional<ButtonType> result = dialog.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.APPLY) {
-                // Здесь код обновления
-                controller.updateAttendanceInDatabase();
 
-                // Здесь код обновления таблицы
+            System.out.println("Debug: Scene is null: " + (dialog.getDialogPane().getScene() == null));
+            System.out.println("Debug: DialogPane is null: " + (dialog.getDialogPane() == null));
+
+            if (result.isPresent() && result.get() == ButtonType.APPLY) {
+                controller.updateAttendanceInDatabase();
                 loadStudentsData();
                 System.out.println("Attendance updated successfully.");
-
-                // Получаем Stage из диалога
-                Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-
-                // Закрываем диалоговое окно
-                stage.close();
             }
+
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+            stage.close();
         }
     }
 
 
-////////////////////
 
 
     ////////////////////
@@ -204,8 +194,6 @@ public class ControllerTeacher {
         List<Student> students = dbHandler.getStudents();
         tableStudents.getItems().addAll(students);
     }
-
-
     public void initializeTableView() {
         TableColumn<Student, String> fullNameColumn = new TableColumn<>("Full Name");
         fullNameColumn.setCellValueFactory(new PropertyValueFactory<>("fName")); // Используйте поле fName, так как у вас нет full_name
@@ -216,9 +204,6 @@ public class ControllerTeacher {
         // Добавьте столбцы к вашему TableView
         tableStudents.getColumns().addAll(fullNameColumn, attendanceColumn);
     }
-
-
-
     private void showAlert(String title, String content) {
         // Метод для отображения сообщения
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -227,43 +212,24 @@ public class ControllerTeacher {
         alert.setContentText(content);
         alert.showAndWait();
     }
-
-
     private Student getSelectedStudent() {
-        // Получаем выбранного студента из таблицы
         return tableStudents.getSelectionModel().getSelectedItem();
     }
-
-
-
-
     @FXML
     public void addStudent() {
         openAddStudentDialog();
     }
-
     @FXML
     public void openAddStudentDialog() {
         try {
-            // Загружаем fxml для диалогового окна добавления студента
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AddStudentDialog.fxml"));
             DialogPane dialogPane = loader.load();
-
-            // Создаем диалоговое окно
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.initModality(Modality.APPLICATION_MODAL);
             dialog.setDialogPane(dialogPane);
-
-            // Получаем контроллер диалогового окна
             AddStudentDialogController dialogController = loader.getController();
-
-            // Инициализируем диалог в контроллере
             dialogController.setDialog(dialog);
-
-            // Устанавливаем родительский контроллер
             dialogController.setParentController(this);
-
-            // Отображаем диалоговое окно и ждем результата
             dialog.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();

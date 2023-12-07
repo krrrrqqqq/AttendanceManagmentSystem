@@ -1,9 +1,6 @@
 package com.example.attendensmanagmentsystem;
 import java.sql.ResultSet;
-
-
- import java.sql.*;
-import java.time.LocalDate;
+import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -136,24 +133,19 @@ public class DatabaseHandler extends Configs {
                 if (onDataChangedListener != null) {
                     onDataChangedListener.onDataChanged();
                 }
-
                 return true;
             } else {
                 System.err.println("Failed to add the student. No rows affected.");
                 return false;
             }
-
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             System.err.println("Failed to add the student. Exception details: " + e.getMessage());
             return false;
         }
     }
-
-
     public DatabaseHandler() {
     }
-
 }
 
 
