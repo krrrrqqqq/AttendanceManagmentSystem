@@ -26,7 +26,8 @@
     </TableView>
 
 
-    <Button fx:id="updateAttendance" layoutX="14.0" layoutY="557.0" text="Update Attendance" />
+    <Button fx:id="updateAttendance" layoutX="14.0" layoutY="557.0" text="Update Attendance" onAction="#updateAttendance" />
+
 
     <Button fx:id="addStudent" layoutX="282.0" layoutY="557.0" text="Add a Student" onAction="#addStudent"  />
    <Button fx:id="deleteStudent" layoutX="163.0" layoutY="557.0" text="Delete Student" onAction="#deleteStudent" />

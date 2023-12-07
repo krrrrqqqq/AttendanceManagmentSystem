@@ -49,6 +49,9 @@ public class Student extends User {
         setAttendancePercentage(attendancePercentage);
     }
 
+    public Student() {
+
+    }
 
 
     // Геттеры и сеттеры для firstDate, secondDate, и других свойств

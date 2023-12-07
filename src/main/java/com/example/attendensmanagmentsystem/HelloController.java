@@ -63,11 +63,7 @@ import java.sql.SQLException;
 
             if (user != null) {
                 System.out.println("Authorization was successful!");
-
-                // Определение роли пользователя
                 String role = getUserRoleFromDatabase(usernameText);
-
-                // Открытие соответствующего окна
                 openWindowByRole(role);
             } else {
                 System.out.println("Incorrect login or password!");
@@ -131,10 +127,6 @@ import java.sql.SQLException;
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-
-        public void openNewScene (String window){
-
         }
     }
 
