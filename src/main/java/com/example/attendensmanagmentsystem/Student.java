@@ -52,10 +52,7 @@ public class Student extends User {
     public Student() {
 
     }
-
-
     // Геттеры и сеттеры для firstDate, secondDate, и других свойств
-
     public String getFirstDate() {
         return firstDate.get();
     }
@@ -65,8 +62,6 @@ public class Student extends User {
     public void setFirstDate(String firstDate) {
         this.firstDate.set(firstDate);
     }
-
-
 
     public String getSecondDate() {
         return secondDate.get();
@@ -78,7 +73,6 @@ public class Student extends User {
         this.secondDate.set(secondDate);
     }
 
-
     public String getThirdDate() {
         return thirdDate.get();
     }
@@ -88,7 +82,6 @@ public class Student extends User {
     public void setThirdDate(String thirdDate) {
         this.thirdDate.set(thirdDate);
     }
-
 
     public String getFourthDate() {
         return fourthDate.get();
@@ -110,10 +103,15 @@ public class Student extends User {
         this.fifthDate.set(fifthDate);
     }
 
+    public double getAttendancePercentage() {
+        return attendancePercentage.get();
+    }
+    public void setAttendancePercentage(double attendancePercentage) {
+        this.attendancePercentage.set(attendancePercentage);
+    }
 
-    // Добавьте аналогичные методы для secondDate, thirdDate, и т. д.
 
-    // Другие методы класса
+
 
     public String getFullName() {
         return getfName() + " " + getlName();
@@ -230,12 +228,6 @@ public class Student extends User {
         this.gpa.set(gpa);
     }
 
-    public DoubleProperty attendancePercentageProperty() {
-        return attendancePercentage;
-    }
 
-    public void setAttendancePercentage(double attendancePercentage) {
-        this.attendancePercentage.set(attendancePercentage);
-    }
 
 }

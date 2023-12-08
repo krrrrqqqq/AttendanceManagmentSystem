@@ -69,14 +69,15 @@ public class DatabaseHandler extends Configs {
         return students;
     }
 
-    public void updateStudentAttendance(Student student, String firstDate, String secondDate, String thirdDate, String fourthDate, String fifthDate) {
+    public void updateStudentAttendance(Student student, String firstDate, String secondDate, String thirdDate, String fourthDate, String fifthDate, String attendancePercentage) {
         try {
             String updateQuery = "UPDATE students SET " +
                     "first_date = ?, " +
                     "second_date = ?, " +
                     "third_date = ?, " +
                     "fourth_date = ?, " +
-                    "fifth_date = ? " +
+                    "fifth_date = ?, " +
+                    "attendance_percentage = ?::double precision " +
                     "WHERE id = ?";
             Connection connection = getDbConnection();
             try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
@@ -85,7 +86,8 @@ public class DatabaseHandler extends Configs {
                 preparedStatement.setString(3, thirdDate);
                 preparedStatement.setString(4, fourthDate);
                 preparedStatement.setString(5, fifthDate);
-                preparedStatement.setInt(6, student.getId());
+                preparedStatement.setString(6, attendancePercentage); // Set the attendance percentage
+                preparedStatement.setInt(7, student.getId());
 
                 preparedStatement.executeUpdate();
 

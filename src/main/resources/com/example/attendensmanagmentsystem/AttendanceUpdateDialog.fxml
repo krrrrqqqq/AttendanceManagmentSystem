@@ -11,13 +11,15 @@
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-      <ColumnConstraints />
+        <ColumnConstraints />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+        <!-- Add a row for attendance percentage -->
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
@@ -26,12 +28,16 @@
         <Label text="Third Date" GridPane.columnIndex="0" GridPane.rowIndex="2" />
         <Label text="Fourth Date" GridPane.columnIndex="0" GridPane.rowIndex="3" />
         <Label text="Fifth Date" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <!-- Add a Label for Attendance Percentage -->
+        <Label text="Attendance Percentage" GridPane.columnIndex="0" GridPane.rowIndex="5" />
 
         <TextField fx:id="firstDateField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
         <TextField fx:id="secondDateField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
         <TextField fx:id="thirdDateField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
         <TextField fx:id="fourthDateField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
         <TextField fx:id="fifthDateField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <!-- Add a TextField for Attendance Percentage -->
+        <TextField fx:id="attendancePercentageField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
     </children>
 </GridPane>
