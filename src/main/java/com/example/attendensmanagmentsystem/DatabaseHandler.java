@@ -86,7 +86,7 @@ public class DatabaseHandler extends Configs {
                 preparedStatement.setString(3, thirdDate);
                 preparedStatement.setString(4, fourthDate);
                 preparedStatement.setString(5, fifthDate);
-                preparedStatement.setString(6, attendancePercentage); // Set the attendance percentage
+                preparedStatement.setString(6, attendancePercentage);
                 preparedStatement.setInt(7, student.getId());
 
                 preparedStatement.executeUpdate();

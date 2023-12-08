@@ -221,10 +221,13 @@ public class ControllerTeacher {
     }
     @FXML
     public void openAddStudentDialog() {
+        Dialog<ButtonType> dialog = new Dialog<>(); // Move the declaration outside the try block
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AddStudentDialog.fxml"));
+            dialog.setTitle("Add Student");
+
             DialogPane dialogPane = loader.load();
-            Dialog<ButtonType> dialog = new Dialog<>();
             dialog.initModality(Modality.APPLICATION_MODAL);
             dialog.setDialogPane(dialogPane);
             AddStudentDialogController dialogController = loader.getController();
