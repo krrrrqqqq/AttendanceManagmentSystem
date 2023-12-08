@@ -21,7 +21,7 @@ public class AttendanceUpdateDialogController implements Initializable {
     @FXML
     private TextField fifthDateField;
     @FXML
-    private TextField attendancePercentageField; // New field for attendance percentage
+    private TextField attendancePercentageField;
 
     private Student student;
     private DatabaseHandler dbHandler;
@@ -29,28 +29,22 @@ public class AttendanceUpdateDialogController implements Initializable {
     public AttendanceUpdateDialogController() {
         this.dbHandler = new DatabaseHandler();
     }
-
     public void initialize(URL location, ResourceBundle resources) {
         this.dbHandler = new DatabaseHandler();
     }
-
     private TableView<Student> tableStudents;
-
     public void setTableStudents(TableView<Student> tableStudents) {
         this.tableStudents = tableStudents;
     }
-
     private void updateTable() {
         loadStudentsData();
         tableStudents.refresh();
     }
-
     private void loadStudentsData() {
         tableStudents.getItems().clear();
         List<Student> students = dbHandler.getStudents();
         tableStudents.getItems().addAll(students);
     }
-
     public void setStudent(Student student) {
         this.student = student;
         firstDateField.setText(student.getFirstDate());
@@ -58,10 +52,8 @@ public class AttendanceUpdateDialogController implements Initializable {
         thirdDateField.setText(student.getThirdDate());
         fourthDateField.setText(student.getFourthDate());
         fifthDateField.setText(student.getFifthDate());
-        // Set attendance percentage
         attendancePercentageField.setText(String.valueOf(student.getAttendancePercentage()));
     }
-
     public void updateAttendanceInDatabase() {
         System.out.println("Inside updateAttendanceInDatabase");
         String firstDate = firstDateField.getText();
@@ -69,7 +61,6 @@ public class AttendanceUpdateDialogController implements Initializable {
         String thirdDate = thirdDateField.getText();
         String fourthDate = fourthDateField.getText();
         String fifthDate = fifthDateField.getText();
-        // Retrieve attendance percentage
         String attendancePercentage = attendancePercentageField.getText();
 
         dbHandler.updateStudentAttendance(student, firstDate, secondDate, thirdDate, fourthDate, fifthDate, attendancePercentage);
