@@ -89,7 +89,7 @@ public class ControllerTeacher {
         }
     }
     private void openAttendanceUpdateDialog(Student student) {
-        Dialog<ButtonType> dialog = new Dialog<>(); // Move the declaration outside the try block
+        Dialog<ButtonType> dialog = new Dialog<>();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AttendanceUpdateDialog.fxml"));
             dialog.initOwner(tableStudents.getScene().getWindow());
@@ -120,13 +120,6 @@ public class ControllerTeacher {
             stage.close();
         }
     }
-
-
-
-
-    ////////////////////
-    ////////////////////
-    ////////////////////
     @FXML
     public void exitApplication() {
         Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
@@ -162,18 +155,11 @@ public class ControllerTeacher {
             showAlert("No Student Selected", "Please select a student to delete.");
         }
     }
-    ////////////////////
-    ////////////////////
-    ////////////////////
-
-
     public void initialize() {
         dbHandler = new DatabaseHandler();
 
-        // Устанавливаем слушателя изменений данных
         dbHandler.setOnDataChangedListener(this::loadStudentsData);
 
-        // Инициализация столбцов таблицы
         group.setCellValueFactory(new PropertyValueFactory<>("group"));
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         fullName.setCellValueFactory(new PropertyValueFactory<>("fullName"));
@@ -187,8 +173,6 @@ public class ControllerTeacher {
 
         updateTable();
     }
-
-
     private void loadStudentsData() {
         tableStudents.getItems().clear();
         List<Student> students = dbHandler.getStudents();
@@ -196,16 +180,14 @@ public class ControllerTeacher {
     }
     public void initializeTableView() {
         TableColumn<Student, String> fullNameColumn = new TableColumn<>("Full Name");
-        fullNameColumn.setCellValueFactory(new PropertyValueFactory<>("fName")); // Используйте поле fName, так как у вас нет full_name
+        fullNameColumn.setCellValueFactory(new PropertyValueFactory<>("fName"));
 
         TableColumn<Student, Double> attendanceColumn = new TableColumn<>("Attendance Percentage");
         attendanceColumn.setCellValueFactory(new PropertyValueFactory<>("attendancePercentage"));
 
-        // Добавьте столбцы к вашему TableView
         tableStudents.getColumns().addAll(fullNameColumn, attendanceColumn);
     }
     private void showAlert(String title, String content) {
-        // Метод для отображения сообщения
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);
         alert.setHeaderText(null);
@@ -217,13 +199,11 @@ public class ControllerTeacher {
     }
     @FXML
     public void addStudent(ActionEvent event) {
-        // Создайте диалоговое окно для ввода данных о новом студенте
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(tableStudents.getScene().getWindow());
         dialog.setTitle("Add Student");
         dialog.setHeaderText("Enter student details");
 
-        // Загрузите FXML-файл для диалогового окна добавления студента
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AddStudentDialog.fxml"));
         try {
             dialog.getDialogPane().setContent(loader.load());
@@ -232,22 +212,16 @@ public class ControllerTeacher {
             return;
         }
 
-        // Определите типы кнопок (Apply и Cancel)
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.APPLY, ButtonType.CANCEL);
 
-        // Получите контроллер для управления данными в диалоговом окне
         AddStudentDialogController controller = loader.getController();
 
-        // Установите DatabaseHandler и колбэк обновления таблицы
         controller.setDatabaseHandler(dbHandler, this::updateTable);
 
-        // Показать диалоговое окно и обработать результат
         Optional<ButtonType> result = dialog.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.APPLY) {
-            // Если была нажата кнопка "Apply", добавьте нового студента в базу данных и обновите таблицу
             controller.addStudentToDatabase();
         }
     }
-
 }

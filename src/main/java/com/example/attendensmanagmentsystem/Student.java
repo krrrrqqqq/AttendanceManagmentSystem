@@ -3,7 +3,6 @@ package com.example.attendensmanagmentsystem;
 import javafx.beans.property.*;
 
 public class Student extends User {
-
     private final StringProperty firstDate = new SimpleStringProperty();
     private final StringProperty secondDate = new SimpleStringProperty();
     private final StringProperty thirdDate = new SimpleStringProperty();
@@ -30,8 +29,6 @@ public class Student extends User {
 
 
 
-    // Другие поля и методы
-
 
 
     public Student(int id, String group, String fullName, double gpa,
@@ -52,7 +49,6 @@ public class Student extends User {
     public Student() {
 
     }
-    // Геттеры и сеттеры для firstDate, secondDate, и других свойств
     public String getFirstDate() {
         return firstDate.get();
     }
@@ -133,7 +129,6 @@ public class Student extends User {
     }
 
 
-    // Другие методы и логика класса
     public int getId() {
         return id.get();
     }

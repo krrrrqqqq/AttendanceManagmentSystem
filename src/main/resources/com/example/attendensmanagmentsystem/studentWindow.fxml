@@ -15,13 +15,13 @@
                 <TableColumn text="Java" />
                 <TableColumn text="Java %" />
                 <TableColumn text="Maths" />
-            <TableColumn text="Maths %" />
+                <TableColumn text="Maths %" />
                 <TableColumn prefWidth="140.0" text="Total Attended" />
-            <TableColumn prefWidth="140.0" text="Total absences" />
+                <TableColumn prefWidth="140.0" text="Total absences" />
                 <TableColumn prefWidth="113.0" text="Total %" />
             </columns>
         </TableView>
         <Button layoutX="378.0" layoutY="557.0" text="Show Visualization" />
-      <Button fx:id="Exit" layoutX="842.0" layoutY="557.0"  text="Exit" />
+        <Button fx:id="Exit" layoutX="842.0" layoutY="557.0"  text="Exit" />
     </children>
 </AnchorPane>

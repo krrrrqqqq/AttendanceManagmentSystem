@@ -129,7 +129,6 @@ public class DatabaseHandler extends Configs {
 
             preparedStatement.executeUpdate();
 
-            // Если у вас есть слушатель изменений данных, уведомите его
             if (onDataChangedListener != null) {
                 onDataChangedListener.onDataChanged();
             }
@@ -138,8 +137,10 @@ public class DatabaseHandler extends Configs {
             e.printStackTrace();
         }
     }
-
-
     public DatabaseHandler() {
     }
 }
+
+
+
+

@@ -35,7 +35,6 @@ public class ControllerStudents {
     private Button exitButton;
 
     public void initialize() {
-        // Initialize the table columns
         fullNameColumn.setCellValueFactory(new PropertyValueFactory<>("fullName"));
         javaColumn.setCellValueFactory(new PropertyValueFactory<>("java"));
         javaPercentageColumn.setCellValueFactory(new PropertyValueFactory<>("javaPercentage"));
@@ -44,7 +43,6 @@ public class ControllerStudents {
         totalAttendedColumn.setCellValueFactory(new PropertyValueFactory<>("totalAttended"));
         totalAbsencesColumn.setCellValueFactory(new PropertyValueFactory<>("totalAbsences"));
         totalPercentageColumn.setCellValueFactory(new PropertyValueFactory<>("totalPercentage"));
-
     }
 
     @FXML
