@@ -2,58 +2,52 @@ package com.example.attendensmanagmentsystem;
 
 import com.example.attendensmanagmentsystem.Student;
 
-
 import javafx.fxml.FXML;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class AddStudentDialogController {
     @FXML
     private TextField groupNameInput;
     @FXML
+    private TextField idInput;
+    @FXML
     private TextField fullNameInput;
     @FXML
     private TextField gpaInput;
 
-    private Dialog<ButtonType> dialog;
+    private DatabaseHandler dbHandler; // Добавьте поле для хранения экземпляра DatabaseHandler
+    private Runnable updateTableCallback; // Добавьте поле для хранения колбэка обновления таблицы
 
-    private ControllerTeacher parentController;
-
-    public void setParentController(ControllerTeacher parentController) {
-        this.parentController = parentController;
+    // Метод для установки экземпляра DatabaseHandler и колбэка обновления таблицы
+    public void setDatabaseHandler(DatabaseHandler dbHandler, Runnable updateTableCallback) {
+        this.dbHandler = dbHandler;
+        this.updateTableCallback = updateTableCallback;
     }
 
-    public void setDialog(Dialog<ButtonType> dialog) {
-        this.dialog = dialog;
-    }
-
+    // В AddStudentDialogController
     @FXML
-    private void handleOK() {
-        // Ваш код для обработки введенных данных и добавления студента
-        // groupNameInput.getText(), fullNameInput.getText(), gpaInput.getText()
-
-        // Закрываем диалоговое окно
-        if (dialog != null) {
-            dialog.setResult(ButtonType.OK);
-            dialog.close();
+    public void addStudentToDatabase() {
+        if (dbHandler == null || updateTableCallback == null) {
+            System.err.println("DatabaseHandler or updateTableCallback not set");
+            return;
         }
 
-        // Вызываем метод добавления студента в родительском контроллере
-        if (parentController != null) {
-            parentController.handleAddStudent(groupNameInput.getText(), fullNameInput.getText(), Double.parseDouble(gpaInput.getText()));
+        // Получите значения из текстовых полей
+        int id = Integer.parseInt(idInput.getText()); // Предполагается, что id вводится как число
+        String group = groupNameInput.getText();
+        String fullName = fullNameInput.getText();
+        double gpa = Double.parseDouble(gpaInput.getText()); // Предполагается, что GPA вводится как число
 
-            // Обновляем таблицу в родительском контроллере
-            parentController.updateTable();
-        }
+        // Добавьте студента в базу данных
+        dbHandler.addStudent(id, group, fullName, gpa);
+
+        // Закройте диалоговое окно
+        Stage stage = (Stage) groupNameInput.getScene().getWindow();
+        stage.close();
+
+        // Вызовите колбэк для обновления таблицы
+        updateTableCallback.run();
     }
 
-    @FXML
-    private void handleCancel() {
-        // Закрываем диалоговое окно
-        if (dialog != null) {
-            dialog.setResult(ButtonType.CANCEL);
-            dialog.close();
-        }
-    }
 }

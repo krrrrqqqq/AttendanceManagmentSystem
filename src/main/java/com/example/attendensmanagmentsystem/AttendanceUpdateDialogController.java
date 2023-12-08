@@ -68,4 +68,3 @@ public class AttendanceUpdateDialogController implements Initializable {
         System.out.println("Exiting updateAttendanceInDatabase");
     }
 }
-

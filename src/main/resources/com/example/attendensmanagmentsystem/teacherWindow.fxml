@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<?import javafx.scene.control.TextField?>
 <AnchorPane prefHeight="596.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.attendensmanagmentsystem.ControllerTeacher">
     <TableView fx:id="tableStudents" prefHeight="546.0" prefWidth="900.0">
         <columns>
@@ -26,17 +22,10 @@
     </TableView>
 
 
-    <Button fx:id="updateAttendance" layoutX="14.0" layoutY="557.0" text="Update Attendance" onAction="#updateAttendance" />
+    <Button fx:id="updateAttendance" layoutX="14.0" layoutY="557.0" onAction="#updateAttendance" text="Update Attendance" />
 
 
-    <Button fx:id="addStudent" layoutX="282.0" layoutY="557.0" text="Add a Student" onAction="#addStudent"  />
-   <Button fx:id="deleteStudent" layoutX="163.0" layoutY="557.0" text="Delete Student" onAction="#deleteStudent" />
-    <Button fx:id="Exit" layoutX="842.0" layoutY="557.0" text="Exit" onAction="#exitApplication" />
-    <MenuButton fx:id="filterBy" layoutX="464.0" layoutY="557.0" mnemonicParsing="false" text="Filter by:">
-     <items>
-       <MenuItem mnemonicParsing="false" text="Attendance %" />
-       <MenuItem mnemonicParsing="false" text="GPA" />
-         <MenuItem mnemonicParsing="false" text="Group" />
-     </items>
-   </MenuButton>
+    <Button fx:id="addStudent" layoutX="282.0" layoutY="557.0" onAction="#addStudent" text="Add a Student" />
+   <Button fx:id="deleteStudent" layoutX="163.0" layoutY="557.0" onAction="#deleteStudent" text="Delete Student" />
+    <Button fx:id="Exit" layoutX="842.0" layoutY="557.0" onAction="#exitApplication" text="Exit" />
 </AnchorPane>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ButtonType?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -22,21 +21,20 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
                         <Label text="Group:" />
-                        <Label text="Full Name:" GridPane.rowIndex="1" />
-                        <Label text="GPA:" GridPane.rowIndex="2" />
+                        <Label text="ID:" GridPane.rowIndex="1" />
+                        <Label text="Full Name:" GridPane.rowIndex="2" />
+                        <Label text="GPA:" GridPane.rowIndex="3" />
                         <TextField fx:id="groupNameInput" GridPane.columnIndex="1" />
-                        <TextField fx:id="fullNameInput" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="gpaInput" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="idInput" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="fullNameInput" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="gpaInput" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                     </children>
                 </GridPane>
             </children>
         </AnchorPane>
     </content>
-    <buttonTypes>
-        <ButtonType text="OK" />
-        <ButtonType text="Cancel" />
-    </buttonTypes>
 </DialogPane>

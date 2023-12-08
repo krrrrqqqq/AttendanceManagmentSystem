@@ -216,52 +216,38 @@ public class ControllerTeacher {
         return tableStudents.getSelectionModel().getSelectedItem();
     }
     @FXML
-    public void addStudent() {
-        openAddStudentDialog();
-    }
-    @FXML
-    public void openAddStudentDialog() {
-        Dialog<ButtonType> dialog = new Dialog<>(); // Move the declaration outside the try block
+    public void addStudent(ActionEvent event) {
+        // Создайте диалоговое окно для ввода данных о новом студенте
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(tableStudents.getScene().getWindow());
+        dialog.setTitle("Add Student");
+        dialog.setHeaderText("Enter student details");
 
+        // Загрузите FXML-файл для диалогового окна добавления студента
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AddStudentDialog.fxml"));
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("AddStudentDialog.fxml"));
-            dialog.setTitle("Add Student");
-
-            DialogPane dialogPane = loader.load();
-            dialog.initModality(Modality.APPLICATION_MODAL);
-            dialog.setDialogPane(dialogPane);
-            AddStudentDialogController dialogController = loader.getController();
-            dialogController.setDialog(dialog);
-            dialogController.setParentController(this);
-            dialog.showAndWait();
+            dialog.getDialogPane().setContent(loader.load());
         } catch (IOException e) {
             e.printStackTrace();
+            return;
+        }
+
+        // Определите типы кнопок (Apply и Cancel)
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.APPLY, ButtonType.CANCEL);
+
+        // Получите контроллер для управления данными в диалоговом окне
+        AddStudentDialogController controller = loader.getController();
+
+        // Установите DatabaseHandler и колбэк обновления таблицы
+        controller.setDatabaseHandler(dbHandler, this::updateTable);
+
+        // Показать диалоговое окно и обработать результат
+        Optional<ButtonType> result = dialog.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.APPLY) {
+            // Если была нажата кнопка "Apply", добавьте нового студента в базу данных и обновите таблицу
+            controller.addStudentToDatabase();
         }
     }
 
-
-    public void handleAddStudent(String groupName, String fullName, double gpa) {
-        try {
-            // Создаем нового студента
-            Student newStudent = new Student(0, groupName, fullName, gpa, "", "", "", "", "", 0);
-
-            // Добавляем студента в базу данных
-            if (dbHandler.addStudent(newStudent)) {
-                // Если добавление успешно, обновляем таблицу
-                loadStudentsData();
-                System.out.println("New student added");
-            } else {
-                showAlert("Error", "Failed to add the student.");
-            }
-        } catch (NumberFormatException e) {
-            showAlert("Error", "Invalid GPA format. Please enter a valid number.");
-            e.printStackTrace();
-        } catch (Exception e) {
-            showAlert("Error", "Failed to add the student. Check console for details.");
-            e.printStackTrace();
-        }
-    }
 }
-
-
-

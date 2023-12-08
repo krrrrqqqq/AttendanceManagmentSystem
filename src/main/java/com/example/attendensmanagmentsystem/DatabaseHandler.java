@@ -116,41 +116,30 @@ public class DatabaseHandler extends Configs {
     public void setOnDataChangedListener(OnDataChangedListener listener) {
         this.onDataChangedListener = listener;
     }
-    public boolean addStudent(Student student) {
-        String insert = "INSERT INTO students (group_name, full_name, gpa) VALUES (?, ?, ?)";
+    public void addStudent(int id, String group, String fullName, double gpa) {
+        String insertQuery = "INSERT INTO students (id, group_name, full_name, gpa) VALUES (?, ?, ?, ?)";
 
         try (Connection connection = getDbConnection();
-             PreparedStatement prSt = connection.prepareStatement(insert)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
-            prSt.setString(1, student.getGroup());
-            prSt.setString(2, student.getFullName());
-            prSt.setDouble(3, student.getGpa());
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, group);
+            preparedStatement.setString(3, fullName);
+            preparedStatement.setDouble(4, gpa);
 
-            int rowsAffected = prSt.executeUpdate();
+            preparedStatement.executeUpdate();
 
-            if (rowsAffected > 0) {
-                System.out.println("Student added successfully");
-
-                // Уведомляем слушателей об изменении данных
-                if (onDataChangedListener != null) {
-                    onDataChangedListener.onDataChanged();
-                }
-                return true;
-            } else {
-                System.err.println("Failed to add the student. No rows affected.");
-                return false;
+            // Если у вас есть слушатель изменений данных, уведомите его
+            if (onDataChangedListener != null) {
+                onDataChangedListener.onDataChanged();
             }
+
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-            System.err.println("Failed to add the student. Exception details: " + e.getMessage());
-            return false;
         }
     }
+
+
     public DatabaseHandler() {
     }
 }
-
-
-
-
-
